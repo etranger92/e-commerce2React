@@ -1,0 +1,8 @@
+[build]
+ignore = "git diff --quiet HEAD^ HEAD sub_dir/"
+    base = "ecommerceone"
+  command = "npm run build" 
+  functions = "backend" 
+  publish = "build" 
+
+
