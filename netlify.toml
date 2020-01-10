@@ -1,6 +1,4 @@
 [build]
-ignore = "git diff --quiet HEAD^ HEAD sub_dir/"
-  base = "appli"
   command = "yarn build" 
   functions = "lambda" 
   publish = "/build" 
