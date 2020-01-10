@@ -442,6 +442,7 @@ body ul {
   background-color: white;
   padding: 1rem;
   position: relative;
+  height: 70vh;
 }
 
 .product_selected_contenant .description_pro_selected .review_clients {
@@ -481,7 +482,7 @@ body ul {
 
 .product_selected_contenant .description_pro_selected a {
   width: 60%;
-  margin: auto;
+
 }
 
 /* Product Selected Page */
