@@ -103,7 +103,7 @@ class ProductSelected extends Component {
           </div>
           <Link
             to={{
-              pathname: "./FinalCart",
+              pathname: "../Components/FinalCart",
               state: {
                 id: id,
                 name: name,

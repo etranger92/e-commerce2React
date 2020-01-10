@@ -108,7 +108,7 @@ class Products extends Component {
                   <div>
                     <Link
                       to={{
-                        pathname: "./ProductSelected",
+                        pathname: "../Components/ProductSelected",
                         state: {
                           id: product._id,
                           name: product.name,
@@ -180,7 +180,7 @@ class Products extends Component {
                   </ul>
                   <Link
                     to={{
-                      pathname: "./ProductSelected",
+                      pathname: "../Components/Products",
                       state: {
                         id: product._id,
                         name: product.name,

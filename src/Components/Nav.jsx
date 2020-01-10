@@ -16,12 +16,12 @@ const Navbar = ({ trolley }) => {
             </li>
             <li>
               {" "}
-              <Link to={"./FinalCart"}> FINAL-CART</Link>
+              <Link to={"../Components/FinalCart"}> FINAL-CART</Link>
             </li>
           </ul>
         </nav>
         <div>
-          <Link to={"./FinalCart"}>
+          <Link to={"../Components/FinalCart"}>
             <span className="icon_bag">
               {" "}
               <FaShoppingBag style={{ color: "black" }} />{" "}
