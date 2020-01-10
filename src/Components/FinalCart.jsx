@@ -49,7 +49,7 @@ class FinalCart extends Component {
 
   componentWillMount() {
     this.setState({
-      //trolley: this.props.trolley.payload
+      trolley: this.props.trolley.payload
     });
   }
 
