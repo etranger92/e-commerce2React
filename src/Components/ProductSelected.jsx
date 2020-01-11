@@ -65,12 +65,9 @@ class ProductSelected extends Component {
     } = this.props.location.state;
 
     const mystyle = {
-      position: "absolute",
       bottom: "2px",
       display: "flex",
       flexDirection: "column",
-      marginLeft: "50%",
-      transform: "translateX(-50%)",
       width: "100%"
     };
 
