@@ -22,8 +22,7 @@ app.use("/.netlify/functions/server", router);
 //if (process.env.NODE_ENV !== "production") {
 //require('dotenv').config()
 //}
-const dotenv = require("dotenv");
-dotenv.config();
+require("dotenv").config();
 
 const uri = process.env.ATLAS_URI;
 

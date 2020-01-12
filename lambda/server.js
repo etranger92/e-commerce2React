@@ -1636,7 +1636,7 @@ const b=function(e){console.warn("WARNING: The `useMongoClient` option is no lon
 /*!
  * Module exports.
  */
-g.STATES=s,e.exports=g},function(e,t,n){const o=n(153),r=n(330),i=n(332),s=n(179),a=o.Router(),c=o(),l=process.env.PORT||5e3;c.use(r()),c.use(o.json()),c.use("/.netlify/functions/server",a),n(555).config();const u=process.env.ATLAS_URI;console.log(u),s.connect("mongodb+srv://nabil:Amjade2409.@cluster0-8phef.mongodb.net/test?retryWrites=true&w=majority",{useNewUrlParser:!0,useCreateIndex:!0,useUnifiedTopology:!0}),s.connection.once("open",()=>{console.log("mongoDB database connection established successfully")});const p=n(556);c.use("/.netlify/functions/server/products/shoes",p),c.listen(l,()=>{console.log("server is running on port"+l)}),e.exports=c,e.exports.handler=i(c)},function(e,t,n){"use strict";
+g.STATES=s,e.exports=g},function(e,t,n){const o=n(153),r=n(330),i=n(332),s=n(179),a=o.Router(),c=o(),l=process.env.PORT||5e3;c.use(r()),c.use(o.json()),c.use("/.netlify/functions/server",a),n(555).config();const u=process.env.ATLAS_URI;s.connect(u,{useNewUrlParser:!0,useCreateIndex:!0,useUnifiedTopology:!0}),s.connection.once("open",()=>{console.log("mongoDB database connection established successfully")});const p=n(556);c.use("/.netlify/functions/server/products/shoes",p),c.listen(l,()=>{console.log("server is running on port"+l)}),e.exports=c,e.exports.handler=i(c)},function(e,t,n){"use strict";
 /*!
  * express
  * Copyright(c) 2009-2013 TJ Holowaychuk
