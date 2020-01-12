@@ -24,7 +24,7 @@ app.use("/.netlify/functions/server", router);
 
 require("dotenv").config();
 
-const uri = process.env.ATLAS_URI;
+const uri = process.env.REACT_APP_ATLAS_URI;
 console.log(uri);
 mongoose.connect(uri, {
   useNewUrlParser: true,
