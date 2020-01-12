@@ -22,10 +22,10 @@ app.use("/.netlify/functions/server", router);
 //if (process.env.NODE_ENV !== "production") {
 //require('dotenv').config()
 //}
-require("dotenv").config();
-
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 const uri = process.env.ATLAS_URI;
-
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true,
