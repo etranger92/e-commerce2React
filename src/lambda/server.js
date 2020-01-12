@@ -7,7 +7,6 @@ const serverless = require('serverless-http');
 //mongoose make it easy to connect to moongose.db js
 const mongoose = require('mongoose');
 
-require('dotenv').config();
 
 const router = express.Router();
 const app = express();
@@ -20,8 +19,12 @@ app.use(express.json());
 //for netlify
 app.use('/.netlify/functions/server', router);
 
-//This is something we have to take it from the dashboard "the string at /connect"" of mongo DB. URI represents where our date is stored. New urlParser is the new tool to parse. We don't need to remember those.
+//From the dashboard "the string at /connect"" of mongo DB. URI represents where our date is stored. New urlParser is the new tool to parse. We don't need to remember those.
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').load();
+}
 const uri = process.env.ATLAS_URI;
+console.log(uri)
 mongoose.connect(uri, {
     useNewUrlParser: true,
     useCreateIndex: true,
