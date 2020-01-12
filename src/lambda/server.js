@@ -20,16 +20,17 @@ app.use(express.json());
 app.use('/.netlify/functions/server', router);
 
 //From the dashboard "the string at /connect"" of mongo DB. URI represents where our date is stored. New urlParser is the new tool to parse. We don't need to remember those.
-if (process.env.NODE_ENV !== "production") {
-    require('dotenv').load();
-}
+//if (process.env.NODE_ENV !== "production") {
+//require('dotenv').config()
+//}
+const dotenv = require("dotenv");
+dotenv.config();
 const uri = process.env.ATLAS_URI;
 console.log(uri)
-mongoose.connect(uri, {
+mongoose.connect("mongodb+srv://nabil:Amjade2409.@cluster0-8phef.mongodb.net/test?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
-
 });
 const connection = mongoose.connection;
 connection.once('open', () => {
