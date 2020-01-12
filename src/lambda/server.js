@@ -13,6 +13,7 @@ const router = express.Router();
 const app = express();
 const port = process.env.PORT || 5000;
 
+// To tell to the server which folder you need to run all of the time: app.use(express.static("name of the folder"))
 //these are the middleware. that will allow us to parse JSON
 app.use(cors());
 app.use(express.json());
@@ -21,7 +22,7 @@ app.use('/.netlify/functions/server', router);
 
 //This is something we have to take it from the dashboard "the string at /connect"" of mongo DB. URI represents where our date is stored. New urlParser is the new tool to parse. We don't need to remember those.
 const uri = process.env.ATLAS_URI;
-mongoose.connect("mongodb+srv://nabil:Amjade2409.@cluster0-8phef.mongodb.net/test?retryWrites=true&w=majority", {
+mongoose.connect(uri, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
