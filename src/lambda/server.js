@@ -1,12 +1,11 @@
-const express = require('express');
+const express = require("express");
 const cors = require("cors");
 //for netlify
-const serverless = require('serverless-http');
+const serverless = require("serverless-http");
 
 //Mongo db holds your documents(datas) under the format of json structure object.
 //mongoose make it easy to connect to moongose.db js
-const mongoose = require('mongoose');
-
+const mongoose = require("mongoose");
 
 const router = express.Router();
 const app = express();
@@ -17,7 +16,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 //for netlify
-app.use('/.netlify/functions/server', router);
+app.use("/.netlify/functions/server", router);
 
 //From the dashboard "the string at /connect"" of mongo DB. URI represents where our date is stored. New urlParser is the new tool to parse. We don't need to remember those.
 //if (process.env.NODE_ENV !== "production") {
@@ -25,31 +24,30 @@ app.use('/.netlify/functions/server', router);
 //}
 const dotenv = require("dotenv");
 dotenv.config();
+
 const uri = process.env.ATLAS_URI;
-console.log(uri)
-mongoose.connect("mongodb+srv://nabil:Amjade2409.@cluster0-8phef.mongodb.net/test?retryWrites=true&w=majority", {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true
 });
 const connection = mongoose.connection;
-connection.once('open', () => {
-    console.log("mongoDB database connection established successfully")
-})
-
+connection.once("open", () => {
+  console.log("mongoDB database connection established successfully");
+});
 
 //set the url address
 //const usersRouter = require('./routes/users');
-const shoesRouter = require('./routes/shoes');
+const shoesRouter = require("./routes/shoes");
 
-//extension of the url to get the datas 
-app.use('/.netlify/functions/server/products/shoes', shoesRouter);
+//extension of the url to get the datas
+app.use("/.netlify/functions/server/products/shoes", shoesRouter);
 //app.use('/users', usersRouter);
 
-
 app.listen(port, () => {
-    console.log("server is running on port" + port);
-})
+  console.log("server is running on port" + port);
+});
 
 module.exports = app;
 //for netlify
