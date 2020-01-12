@@ -25,8 +25,9 @@ app.use("/.netlify/functions/server", router);
 require("dotenv").config();
 
 const uri = process.env.REACT_APP_ATLAS_URI;
-console.log(uri);
-mongoose.connect(uri, {
+//console.log(uri);
+//!!!! Need to hide this url but in the production this does not work. So, I put the string here which is nice for anyone who wants to hack. Need to fix it!!!!
+mongoose.connect("mongodb+srv://nabil:Amjade2409.@cluster0-8phef.mongodb.net/test?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
