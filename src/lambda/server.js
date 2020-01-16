@@ -25,9 +25,9 @@ app.use(express.json());
 require("dotenv").config();
 
 
-const uri = process.env.REACT_APP_ATLAS_URI;
-//${uri}
-mongoose.connect(`${uri}`, {
+
+
+mongoose.connect(`${process.env.ATLAS_URI}`, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
