@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 
-const stripe = require('stripe')(`pk_test_QBg4f2482dyWJX85c8roBgqz`);
-//${process.env.PASS}
+const stripe = require('stripe')("pk_test_QBg4f2482dyWJX85c8roBgqz");
+//${process.env.PASS}`
 
 //for netlify
 const serverless = require("serverless-http");
