@@ -1,6 +1,5 @@
 import React from "react";
 import { Component } from "react";
-import { toast } from "react-toastify";
 import { privateDecrypt } from "crypto";
 import { TROLLEY } from "../Redux/Actions/types";
 import { Link } from "react-router-dom";
@@ -118,7 +117,7 @@ class FinalCart extends Component {
       });
       this.props.emptyTrolley();
     } else {
-      toast("Something went wrong", { type: "error" });
+      console.log("unsuccess");
     }
   };
 
