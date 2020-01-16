@@ -1,8 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const stripe = require('stripe')(`${process.env.PASS}`);
 
-const stripe = require('stripe')("pk_test_QBg4f2482dyWJX85c8roBgqz");
-//${process.env.PASS}`
 
 //for netlify
 const serverless = require("serverless-http");
@@ -26,10 +25,9 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-
 const uri = process.env.REACT_APP_ATLAS_URI;
 //${uri}
-mongoose.connect("mongodb+srv://nabil:Amjade2409.@cluster0-8phef.mongodb.net/test?retryWrites=true&w=majority", {
+mongoose.connect(`${uri}`, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
@@ -45,11 +43,10 @@ const shoesRouter = require("./routes/shoes");
 const transactionsRouter = require("./routes/transactions");
 
 //extension of the url to get the datas
-
 app.use("/.netlify/functions/server/products/shoes", shoesRouter);
 app.use("/.netlify/functions/server/transactions", transactionsRouter);
-//app.use('/users', usersRouter);
 
+//app.use('/users', usersRouter);
 app.listen(port, () => {
   console.log("server is running on port" + port);
 });
