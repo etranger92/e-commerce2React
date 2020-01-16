@@ -1,7 +1,7 @@
 var informations = require("../lambda/random");
 const express = require("express");
 const cors = require("cors");
-const stripe = require('stripe')("sk_test_Q4G4XO257sfFTvhv4ob5DQeO");
+const stripe = require('stripe')(`${informations.pass}`);
 
 //for netlify
 const serverless = require("serverless-http");
