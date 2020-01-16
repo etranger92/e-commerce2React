@@ -212,6 +212,7 @@ class FinalCart extends Component {
                   stripeKey="pk_test_QBg4f2482dyWJX85c8roBgqz"
                   token={this.handleToken}
                   amount={this.calculeTotalPrice()}
+                  currency="gbp"
                   name="You details"
                   billingAddress
                   shippingAddress
