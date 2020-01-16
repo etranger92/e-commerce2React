@@ -1,7 +1,6 @@
-var informations = require("../lambda/random");
 const express = require("express");
 const cors = require("cors");
-const stripe = require('stripe')(`${informations.pass}`);
+const stripe = require('stripe')(`${process.env.PASS}`);
 
 //for netlify
 const serverless = require("serverless-http");
@@ -24,11 +23,10 @@ app.use(express.json());
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
+
 
 const uri = process.env.REACT_APP_ATLAS_URI;
-mongoose.connect(`mongodb+srv://${informations.name}:${informations.surname}@cluster0-8phef.mongodb.net/test?retryWrites=true&w=majority`, {
+mongoose.connect(`${uri}`, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true

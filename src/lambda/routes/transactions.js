@@ -1,8 +1,7 @@
 //take the infos we need for our stripe
 const express = require('express');
 const uuid = require("uuid/v4");
-var informations = require("../random");
-const stripe = require('stripe')("sk_test_Q4G4XO257sfFTvhv4ob5DQeO");
+const stripe = require('stripe')(`${process.env.PASS}`);
 
 
 //router is here to create a stream to be able to get post update and delete your datas from mongosDb.
