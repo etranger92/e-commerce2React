@@ -12,13 +12,7 @@ router.route('/').get((req, res) => {
         .then(shoes => res.json(shoes))
         .catch(err => res.status(400).json(err));
 });
-/*
-router.get("/", (req, res) => {
-    Shoes.find()
-        .then(shoes => res.json(shoes))
-        .catch(err => res.status(400).json(err));
-});
-*/
+
 router.route('/:id').get((req, res) => {
     Shoes.findById(req.params.id)
         .then(shoes => res.json(shoes))

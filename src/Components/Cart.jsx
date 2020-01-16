@@ -8,6 +8,7 @@ import { fetchProducts } from "../Redux/Actions/fetchProducts";
 //to your dispatchFetch
 import { bindActionCreators } from "redux";
 import LoadingSpinner from "./LoadingSpinner";
+
 class Cart extends Component {
   constructor(props) {
     super(props);

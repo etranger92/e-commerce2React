@@ -1,8 +1,14 @@
 import React from "react";
 import { Component } from "react";
+import { toast } from "react-toastify";
 import { privateDecrypt } from "crypto";
 import { TROLLEY } from "../Redux/Actions/types";
 import { Link } from "react-router-dom";
+import { StripeProvider } from "react-stripe-elements";
+import axios from "axios";
+//import form from "../Components/stripe/Form";
+import StripeCheckout from "react-stripe-checkout";
+
 //to your dispatchFetch
 
 import spyder0 from "../pictures/shoes/spyders/spyder0.jpg";
@@ -62,7 +68,6 @@ class FinalCart extends Component {
     // this.setState({ trolley: this.props.trolley.payload });
     this.calculeTotalPrice();
   }
-
   handleQuantityOnChange = event => {
     let id = event.target.getAttribute("id");
     let quantity = event.target.value;
@@ -75,21 +80,15 @@ class FinalCart extends Component {
     let productIndex = trolley.findIndex(element => element.id == id);
 
     trolley[productIndex].quantitySelected = quantity;
-
-    this.setState({
-      // trolley
-    });
     // Init totalPrice
     this.calculeTotalPrice();
   };
-
   updateDataBase = () => {
     this.props.trolley.payload.map(item => {
       var quantityRemained = item.quantityAvailable - item.quantitySelected;
       this.props.updateQuantity(item.id, quantityRemained);
     });
   };
-
   calculeTotalPrice = () => {
     var totalPrice = this.props.trolley.payload.reduce(
       (accumulateur, currentValue) =>
@@ -98,16 +97,59 @@ class FinalCart extends Component {
     );
     return totalPrice;
   };
-
   handleClick = () => {
     this.setState({ isOpen: true });
   };
+  handleToken = async (token, addresses) => {
+    const product = {
+      name: "name",
+      price: this.calculeTotalPrice(),
+      description: "description of the items"
+    };
+    const sendDatas = await axios.post(
+      "/.netlify/functions/server/transactions/charge",
+      { token, product }
+    );
 
+    const { status } = sendDatas.data;
+    if (status === "success") {
+      this.setState({
+        isPaymentAccepted: true
+      });
+      this.props.emptyTrolley();
+    } else {
+      toast("Something went wrong", { type: "error" });
+    }
+  };
+
+  renderHtml = () => {
+    return (
+      <div className="purchase_success">
+        <h3> Thank you for your purchase. </h3>
+        <h4 style={{ fontStyle: "italic", color: "grey" }}>
+          {" "}
+          You will receive soon a confirmation on your email provided
+        </h4>
+        <Link
+          to={{
+            pathname: "/"
+          }}
+        >
+          {" "}
+          Back main page{" "}
+        </Link>
+      </div>
+    );
+  };
   render() {
     return (
       <section className="final_cart">
+        {this.state.isPaymentAccepted && this.renderHtml()}
         {!this.props.trolley.payload.length > 0 && (
-          <div className="empty_bag">
+          <div
+            className="empty_bag"
+            style={this.state.isPaymentAccepted && { display: "none" }}
+          >
             {" "}
             <h1> Your bag is empty. </h1>
             <Link
@@ -170,18 +212,41 @@ class FinalCart extends Component {
                   {" "}
                   CHECKOUT
                 </button>
+
                 <span>Or</span>
                 <button className="btn_cart">PAYPAL CHECKOUT</button>
               </div>
             </div>
           </div>
         ))}
-        <div className="product_summary">
+        <div
+          className="product_summary"
+          style={this.state.isPaymentAccepted && { display: "none" }}
+        >
           <div>
+            {/*  
+            <Link
+              to={{
+                pathname: "../Components/stripe/form",
+                state: {
+                  price: this.calculeTotalPrice()
+                }
+              }}
+            > 
             <button className="btn_cart" onClick={this.updateDataBase}>
-              {" "}
-              CHECKOUT
+              {" "}*/}
+            <StripeCheckout
+              className="btn_cart"
+              stripeKey="pk_test_QBg4f2482dyWJX85c8roBgqz"
+              token={this.handleToken}
+              amount={this.calculeTotalPrice()}
+              name="You details"
+              billingAddress
+              shippingAddress
+            />
+            ;{/*
             </button>
+             </Link > */}
             <span>Or</span>
             <button className="btn_cart">PAYPAL CHECKOUT</button>
           </div>
@@ -191,9 +256,7 @@ class FinalCart extends Component {
             </div>
             <div className="sub_product_summary">
               <div>
-                <h3>
-                  Subtotal: <span>PRIX: {this.calculeTotalPrice()}</span>$
-                </h3>
+                <h3>Subtotal: {this.calculeTotalPrice()} Pounds</h3>
               </div>
               <h3>
                 Delivery:
@@ -203,7 +266,7 @@ class FinalCart extends Component {
                 <h3>
                   {" "}
                   {/* I did try to not repeat myself for performence matter but this.state gives me an issue when component renders for the first time, as it's async. */}
-                  Total: <span> {this.calculeTotalPrice()}$</span>
+                  Total: <span> {this.calculeTotalPrice()} Pounds</span>
                 </h3>
                 <span>(Inclusive of tax)</span>
               </div>
@@ -235,6 +298,11 @@ const mapDispatchToProps = dispatch => {
         type: TROLLEY.REMOVE_PRODUCT_TROLLEY,
         id: id,
         indice: false
+      });
+    },
+    emptyTrolley: () => {
+      dispatch({
+        type: TROLLEY.EMPTY_TROLLEY
       });
     },
     updateQuantityProductsTrolley: (id, value) => {

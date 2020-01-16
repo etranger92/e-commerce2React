@@ -7,7 +7,6 @@ let trolleyUpdated = {
 };
 
 const trolley = (state = trolleyUpdated, action) => {
-    console.log(state, "this is your trolley state")
     //In case if users refresh the page with no changes, we want to prevent duplicated values
     var isItemAlreadyInArray = state.payload.some(item => {
         if (action.payload) {
@@ -34,18 +33,28 @@ const trolley = (state = trolleyUpdated, action) => {
                     payload: state.payload.filter(item => item.id != action.id)
                 }
             }
-            case TROLLEY.UPDATE_QUANTITY:
-                return {
-                    ...state,
-                    payload: state.payload.map((item, index) =>
-                        item.id == action.id ? {
-                            ...item,
-                            quantitySelected: action.value
-                        } : item
-                    )
-                }
-                default:
-                    return state;
+            break;
+        case TROLLEY.UPDATE_QUANTITY:
+            return {
+                ...state,
+                payload: state.payload.map((item, index) =>
+                    item.id == action.id ? {
+                        ...item,
+                        quantitySelected: action.value
+                    } : item
+                )
+            }
+            break;
+        case TROLLEY.EMPTY_TROLLEY:
+
+            return {
+                ...state,
+                payload: []
+            }
+
+            break;
+        default:
+            return state;
     }
     return state
 };

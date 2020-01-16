@@ -36,7 +36,6 @@ export const fetchProducts = () => {
 }
 
 export const updateQuantityProducts = (id, quantityOut) => {
-
     return dispatch => {
         dispatch(updateProductsPending());
         fetch("/.netlify/functions/server/products/shoes/" + id, {

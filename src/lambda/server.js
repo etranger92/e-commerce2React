@@ -1,33 +1,34 @@
+var informations = require("../lambda/random");
 const express = require("express");
 const cors = require("cors");
+const stripe = require('stripe')("sk_test_Q4G4XO257sfFTvhv4ob5DQeO");
+
 //for netlify
 const serverless = require("serverless-http");
 
 //Mongo db holds your documents(datas) under the format of json structure object.
 //mongoose make it easy to connect to moongose.db js
 const mongoose = require("mongoose");
-
 const router = express.Router();
 const app = express();
 const port = process.env.PORT || 5000;
+app.use("/.netlify/functions/server", router);
 
 // To tell to the server which folder you need to run all of the time: app.use(express.static("name of the folder"))
 //these are the middleware. that will allow us to parse JSON
 app.use(cors());
 app.use(express.json());
-//for netlify
-app.use("/.netlify/functions/server", router);
 
 //From the dashboard "the string at /connect"" of mongo DB. URI represents where our date is stored. New urlParser is the new tool to parse. We don't need to remember those.
 //if (process.env.NODE_ENV !== "production") {
-//require('dotenv').config()
-
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
 
 const uri = process.env.REACT_APP_ATLAS_URI;
-//console.log(uri);
-//!!!! Need to hide this url but in the production this does not work. So, I put the string here which is nice for anyone who wants to hack. Need to fix it!!!!
-mongoose.connect("mongodb+srv://nabil:Amjade2409.@cluster0-8phef.mongodb.net/test?retryWrites=true&w=majority", {
+mongoose.connect(`mongodb+srv://${informations.name}:${informations.surname}@cluster0-8phef.mongodb.net/test?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
@@ -40,9 +41,12 @@ connection.once("open", () => {
 //set the url address
 //const usersRouter = require('./routes/users');
 const shoesRouter = require("./routes/shoes");
+const transactionsRouter = require("./routes/transactions");
 
 //extension of the url to get the datas
+
 app.use("/.netlify/functions/server/products/shoes", shoesRouter);
+app.use("/.netlify/functions/server/transactions", transactionsRouter);
 //app.use('/users', usersRouter);
 
 app.listen(port, () => {
