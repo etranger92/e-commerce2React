@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const stripe = require('stripe')(`${process.env.PASS}`);
+
+const stripe = require('stripe')(`pk_test_QBg4f2482dyWJX85c8roBgqz`);
+//${process.env.PASS}
 
 //for netlify
 const serverless = require("serverless-http");
@@ -26,7 +28,8 @@ if (process.env.NODE_ENV !== "production") {
 
 
 const uri = process.env.REACT_APP_ATLAS_URI;
-mongoose.connect(`${uri}`, {
+//${uri}
+mongoose.connect("mongodb+srv://nabil:Amjade2409.@cluster0-8phef.mongodb.net/test?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
