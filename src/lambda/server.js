@@ -21,9 +21,9 @@ app.use(express.json());
 
 //From the dashboard "the string at /connect"" of mongo DB. URI represents where our date is stored. New urlParser is the new tool to parse. We don't need to remember those.
 //if (process.env.NODE_ENV !== "production") {
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
+
+require("dotenv").config();
+
 
 const uri = process.env.REACT_APP_ATLAS_URI;
 //${uri}
