@@ -207,11 +207,15 @@ class FinalCart extends Component {
                 </ul>
               </div>
               <div className="sub_review_3">
-                <button className="btn_cart" onClick={this.updateDataBase}>
-                  {" "}
-                  CHECKOUT
-                </button>
-
+                <StripeCheckout
+                  className="btn_stripe"
+                  stripeKey="pk_test_QBg4f2482dyWJX85c8roBgqz"
+                  token={this.handleToken}
+                  amount={this.calculeTotalPrice()}
+                  name="You details"
+                  billingAddress
+                  shippingAddress
+                />
                 <span>Or</span>
                 <button className="btn_cart">PAYPAL CHECKOUT</button>
               </div>
@@ -235,7 +239,7 @@ class FinalCart extends Component {
             <button className="btn_cart" onClick={this.updateDataBase}>
               {" "}*/}
             <StripeCheckout
-              className="btn_cart"
+              className="btn_stripe"
               stripeKey="pk_test_QBg4f2482dyWJX85c8roBgqz"
               token={this.handleToken}
               amount={this.calculeTotalPrice()}
@@ -243,7 +247,7 @@ class FinalCart extends Component {
               billingAddress
               shippingAddress
             />
-            ;{/*
+            {/*
             </button>
              </Link > */}
             <span>Or</span>

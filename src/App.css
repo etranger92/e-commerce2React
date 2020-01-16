@@ -27,6 +27,7 @@ body ul {
   height: 7vh;
   color: white;
   font-weight: bold;
+  font-size: 14px;
 }
 
 .btn_cart {
@@ -38,6 +39,8 @@ body ul {
   width: 10rem;
   color: white;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
 }
 
 /*********** Keyframes *********/
@@ -645,6 +648,29 @@ body ul {
   justify-content: space-between;
   align-items: center;
 }
+
+.btn_stripe {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  background-color: black !important;
+  background-image: none !important;
+  height: 8vh !important;
+  width: 10rem !important;
+  color: white !important;
+  cursor: pointer !important;
+  display: flex !important;
+
+}
+
+.btn_stripe span {
+
+  background-image: none !important;
+  box-shadow: none !important;
+  font-style: normal !important;
+  margin: auto !important;
+
+}
+
 
 /* End final cart */
 
