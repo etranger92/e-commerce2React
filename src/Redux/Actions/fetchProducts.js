@@ -18,7 +18,7 @@ export const fetchProducts = () => {
     return dispatch => {
 
         dispatch(fetchProductsPending());
-        fetch("/.netlify/functions/server/products/shoes", {
+        fetch("http://localhost:9000/.netlify/functions/server/products/shoes", {
                 method: 'GET'
             })
             .then(res => res.json())
